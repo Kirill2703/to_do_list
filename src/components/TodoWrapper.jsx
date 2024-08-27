@@ -5,6 +5,7 @@ import Todo from './Todo';
 import EditTodoForm from './EditTodoForm';
 import TimeDate from './Time';
 import CalendarToggle from './CalendarToggle';
+import { Col, Divider, Row } from 'antd';
 
 
 uuidv4();
@@ -58,30 +59,45 @@ const TodoWrapper = () => {
     };
     
     let getDate = new Date().toLocaleDateString();
-    return (
-        <>
-            <CalendarToggle calendarDate={calendarDate} onDateChange={setCalendarDate} />
+  return (
+    <>
+      <Row gutter={[16, 16]}>
+        <Col span={24}>
+          <div className="MainContainer">
+            <Row>
+              <Col span={6}>
+                <div className="ContainerCalendar">
+                  <CalendarToggle
+                    calendarDate={calendarDate}
+                    onDateChange={setCalendarDate}
+                  />
+                </div>
+              </Col>
+            </Row>
             <TimeDate />
-            <h3>{getDate }</h3>
-        <div className="TodoWrapper">
-          <h1>Get Things Done!</h1>
-          <TodoForm addTodo={addTodo} />
-          {todos.map((todo, index) =>
-            todo.isEditing ? (
-              <EditTodoForm editTodo={editTask} task={todo} />
-            ) : (
-              <Todo
-                task={todo}
-                key={index}
-                toggleComplete={toggleComplete}
-                deleteTodo={deleteTodo}
-                editTodo={editTodo}
-              />
-            )
-          )}
-        </div>
-      </>
-    );
+            <h3>{getDate}</h3>
+            <div className="TodoWrapper">
+              <h1>Get Things Done!</h1>
+              <TodoForm addTodo={addTodo} />
+              {todos.map((todo, index) =>
+                todo.isEditing ? (
+                  <EditTodoForm editTodo={editTask} task={todo} />
+                ) : (
+                  <Todo
+                    task={todo}
+                    key={index}
+                    toggleComplete={toggleComplete}
+                    deleteTodo={deleteTodo}
+                    editTodo={editTodo}
+                  />
+                )
+              )}
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </>
+  );
 };
 
 export default TodoWrapper;
